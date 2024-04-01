@@ -1,0 +1,95 @@
+@media(max-width:1133px){
+    header .searchbar input{
+        width: 400px;
+    }
+}
+@media(max-width:1200px){
+    .banner .banner-card{
+        margin-top: -200px;
+    }
+    .banner .swiper-button-prev:after,
+    .banner .swiper-button-next:after{
+        margin-bottom: 120px;
+    }
+    
+}@media(max-width:1260px){
+    header .searchbar input{
+        width: 450px;
+    } 
+}
+@media(max-width:1120px){
+    header .searchbar input{
+        width: 300px;
+    } 
+}
+
+@media(max-width:992px){
+
+    .banner .swiper-button-prev:after,
+    .banner .swiper-button-next:after{
+        margin-bottom: 100px;
+    }
+    
+}
+
+@media(max-width:768px){
+    .product .col-md-2{
+        display: none;
+    }
+    .see-deal{
+        display: block;
+    }
+}
+
+@media(max-width:840px){
+    .banner .banner-card{
+        margin-top: -150px;
+    }
+}
+@media(max-width:650px){
+    .banner .banner-card{
+        margin-top: -100px;
+    }
+}
+@media(max-width:576px){
+    .decor .decor-img img {
+       margin: 0 auto;
+    }
+    header .searchbar input{
+        width: 150px;
+    } 
+
+    .banner .banner-card{
+        margin-top: -60px;
+    }
+    .banner .swiper-button-prev:after,
+    .banner .swiper-button-next:after{
+        margin-bottom: 60px;
+    }
+    .swiper-button-prev:after {
+        margin-right: 20px;
+        padding: 20px 20px 20px 10px;
+    }
+    
+    .swiper-button-next:after {
+        padding: 20px 15px;
+        margin-left: 10px;
+    
+    }
+    
+}
+
+@media(max-width:476px){
+    .deals .deal-img img{
+        height: 120px;
+    }
+}
+@media(max-width:363px){
+    .banner .style-img img{
+        width: 120px;
+        height: 90px;
+    }
+    .banner .style-img p{
+        font-size: 10px;
+    }
+}

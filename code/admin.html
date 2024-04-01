@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .model{
+        padding: 20px;
+        box-shadow: 0px 3px 15px gray;
+        width: 30%;
+        background-color: white;
+        position: fixed;
+        top: 0%;
+        left: 55%;
+        display: none;
+    }
+   
+</style>
+
+<body>
+    <h1>admin</h1>
+
+    Product Img <input type="text" id="image" /><br><br>
+    Product Name <input type="text" id="pName" /><br><br>
+    Discription <input type="text" id="disc" /><br><br>
+    Last Month Selling <input type="text" id="selling" /><br><br>
+    price <input type="number" id="price" /><br><br>
+    Real price <input type="number" id="rPrice" /><br><br>
+    discount <input type="text" id="discount" /><br><br>
+    <button onclick="addData()">Add</button><br><br>
+
+
+
+    <table border="1" cellpadding="10px" cellspacing="0">
+        <thead>
+            <tr>
+                <td>Product image</td>
+                <td>Product Name</td>
+                <td>Discription</td>
+                <td>Selling </td>
+                <td>Price</td>
+                <td>Real Price</td>
+                <td>Discounts</td>
+                <td>Remove</td>
+                <td>Update</td>
+            </tr>
+        </thead>
+        
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <div class="model" id="mymodel">
+        <button onclick="closeData()" id="close">close</button>
+        <br>
+        Product Img <input type="text" id="imagee" /><br><br>
+        Product Name <input type="text" id="pNamee" /><br><br>
+        Discription <input type="text" id="discc" /><br><br>
+        Last Month Selling <input type="text" id="sellingg" /><br><br>
+        price <input type="number" id="pricee" /><br><br>
+        Real price <input type="number" id="rPricee" /><br><br>
+        discount <input type="text" id="discountt" /><br><br>
+        <input type="hidden" id="index">
+        <button onclick="saveData()">save</button>
+       
+    </div>
+
+    <script>
+
+
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        function addData() {
+            let product = {
+                image : document.getElementById("image").value,
+                pname : document.getElementById("pName").value,
+                disc : document.getElementById("disc").value,
+                selling :document.getElementById("selling").value,
+                price: document.getElementById("price").value,
+                realPrice:document.getElementById("rPrice").value,
+                discount : document.getElementById("discount").value
+            };
+            products.push(product);
+            console.log(products);
+            localStorage.setItem("products",JSON.stringify(products));
+            location.reload()
+        }
+
+        function loadData(){
+            let tbody = document.getElementById("tbody");
+
+        products.map((val,ind)=>{
+          let tr = document.createElement("tr");
+          tr.innerHTML =  `<td>${val.image}</td>
+                           <td>${val.pname}</td>
+                           <td>${val.disc}</td>
+                           <td>${val.selling}</td>
+                           <td>${val.price}</td>
+                           <td>${val.realPrice}</td>
+                           <td>${val.discount}</td>
+                           <td><button onclick = "removeData(${ind})">Remove</button></td>
+                           <td><button onclick = "updateData(${ind})">Update</button></td>`  
+
+        tbody.appendChild(tr);
+        })
+        }
+        loadData()
+
+        function removeData(ind){
+            let product = products[ind]
+            let result = products.filter((val)=>val.pname != product.pname);
+            console.log(result);
+            localStorage.setItem("products",JSON.stringify(result));
+            location.reload()
+        }
+
+        function updateData (ind){
+            let model = document.getElementById("mymodel");
+            model.style.display ="block"
+
+            let product = products[ind]
+           document.getElementById("imagee").value = product.image;
+           document.getElementById("pNamee").value = product.pname;
+           document.getElementById("discc").value = product.disc;
+           document.getElementById("sellingg").value = product.selling;
+           document.getElementById("pricee").value = product.price;
+           document.getElementById("rPricee").value = product.realPrice;
+           document.getElementById("discountt").value = product.discount;
+        }
+
+        function saveData(){
+            let index = document.getElementById("index").value;
+            let product = {
+                image : document.getElementById("imagee").value,
+                pname : document.getElementById("pNamee").value,
+                disc : document.getElementById("discc").value,
+                selling :document.getElementById("sellingg").value,
+                price: document.getElementById("pricee").value,
+                realPrice:document.getElementById("rPricee").value,
+                discount : document.getElementById("discountt").value
+            }
+            products.splice(index,1,product)
+            localStorage.setItem("products",JSON.stringify(products))
+            location.reload();
+        }
+
+        function closeData(){
+            let model =document.getElementById("mymodel")
+            model.style.display = "none";
+        }
+
+
+    </script>
+
+</body>
+
+</html>

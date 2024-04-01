@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .form-data{
+        display: flex;
+        justify-content: center;    
+    }
+    .form-detail{
+        margin-top: 200px;
+        border: 1px solid #000;
+        padding: 30px 10px;
+        border-radius: 5px;
+}
+body{
+    background-color: grey;
+}
+input{
+    border-radius: 5px;
+    padding: 5px;
+}
+button{
+   border-radius: 5px;
+}
+</style>
+    
+<body>
+
+   <div class="form-data">
+    <div class="form-detail"> 
+        <label>Role :</label><br>
+        <input type="text" id="role" /><br><br>
+        <label>Email :</label><br>
+        <input type="email" id="email" /><br><br>
+        <label>Password :</label><br>
+        <input type="password" id="password" /><br><br>
+        <button onclick="login()">Login</button>
+   </div>
+   </div>
+
+    <script>
+        
+      let role = ["admin" ,"user"]
+      let emailName = "krishna@gmail.com";
+      let pass = "12345";
+
+      function login() {
+        let rolee = document.getElementById("role").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        console.log(rolee);
+        if (role.includes(rolee)){
+                if(emailName==email && pass==password && rolee == "admin"){
+                console.log("You Are Login Success");
+                location.href = "./code/admin.html" 
+            }
+            else if(emailName==email && pass==password && rolee == "user"){
+                console.log("You Are login successfully");
+                location.href = "./code/index.html"
+            }
+            else{
+                console.log("invalid Cradintial !!!!!");
+            }
+            }
+            else{
+                console.log("role id not inlcude");
+            }
+            
+       }
+    
+        
+    </script>
+
+</body>
+</html>
