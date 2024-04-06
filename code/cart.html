@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +17,12 @@
 
 
 <style>
-    .star i{
+    .star i {
         color: orange;
+    }
+
+    table{
+        margin: 0 auto;
     }
 </style>
 
@@ -136,18 +141,28 @@
                     <h3 class="mb-0">& Orders</h3>
                 </div>
                 <a href="cart.html"
-                class="cart d-flex align-self-center justify-content-center ps-lg-2  mt-md-0 mt-2 position-relative">
-                <i class="fa-solid fa-cart-flatbed"></i>
-                <p class="mb-0 align-self-end ms-1">cart</p>
-                <label class="position-absolute" id="count">0</label>
-            </a>
+                    class="cart d-flex align-self-center justify-content-center ps-lg-2  mt-md-0 mt-2 position-relative">
+                    <i class="fa-solid fa-cart-flatbed"></i>
+                    <p class="mb-0 align-self-end ms-1">cart</p>
+                    <label class="position-absolute" id="count">0</label>
+                </a>
             </div>
         </nav>
     </header>
 
-    <div id="bagDetails" class ="d-flex flex-wrap justify-content-around ms-3">
-                    
+    <div id="bagDetails" class="d-flex flex-wrap ms-3">
+
     </div>
+
+
+    <table border="1" cellpadding="10px" class="text-center">
+        <thead id="thead">
+        </thead>
+    </table>
+    <table border="1" >
+        <thead id="thead">
+        </thead>
+    </table>
 
 
     <script>
@@ -155,9 +170,20 @@
         let cart = JSON.parse(localStorage.getItem("cart"))
         console.log(cart);
 
-        function loadData(){
+        let data = (index) => {
+            let quantity = JSON.parse(localStorage.getItem(`num${index}`)) || 0;
+            let storedPrice = JSON.parse(localStorage.getItem(`price${index}`)) || 0;
+            return { quantity, storedPrice };
+            console.log(quantity);
+            console.log(storedPrice);
+
+        };
+
+        function loadData() {
             let bagDetails = document.getElementById("bagDetails")
-            cart.map((val,ind)=>{
+
+            cart.map((val, ind) => {
+                let {quantity, storedPrice}=data(`${ind}`)
                 let card = document.createElement("card");
                 card.innerHTML = `<div class="bag-img ">
                                 <img src="${val.image}" height="230px" witdh="230px" alt="img">
@@ -180,15 +206,16 @@
                                 <p class="mb-2">(${val.discount} % Off)</p>
                             </div>
                             <p class="text-center">FREE Delivery by Amazon</p>
-                            <p>Quantity : 1</p>
+                            <span class="pb-2 d-inline-block">quantity : ${val.quantity}</span>
                             <button class="d-flex justify-content-center bg-danger text-white border-0 rounded-2 px-2 py-1" onclick="cartData(${ind})">Remove To Cart</button>`
 
-                            bagDetails.appendChild(card)
-                        })
-        
+                bagDetails.appendChild(card)
+            })
         }
         loadData()
 
+
+    
 
 
         let cartData = (ind) => {
@@ -202,6 +229,32 @@
             location.reload()
         }
         let count = document.getElementById("count").innerHTML = cart.length;
+        
+        let price = () => {
+            let qna = 0;
+            let total = 0;
+            cart.forEach((val, ind) => {
+                let { quantity,storedPrice}=data(`${ind}`)
+                qna += +quantity;
+                total += +storedPrice;
+            });
+
+            let thead = document.getElementById("thead")
+            for (let i = 0; i < 1; i++) {
+                let tr = document.createElement("tr")
+                tr.innerHTML = `<th>Total Quantity</th>
+                                <th>${qna}</th>`
+                thead.appendChild(tr)
+            }
+            for (let i = 0; i < 1; i++) {
+                let tr = document.createElement("tr")
+                tr.innerHTML = `<th>Total Rupee</th>
+                <th>₹${total}</th>`
+                thead.appendChild(tr)
+            }
+        }
+
+        price();
 
     </script>
 
@@ -215,4 +268,5 @@
     <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
